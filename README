@@ -4,7 +4,7 @@ minclude: removes unnecessary #include directives from header files
 
 == Usage
 
-fix_includes [OPTION] ... FILES
+minclude.rb [OPTION] ... FILES
 
 -h, --help:
    show help

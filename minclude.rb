@@ -23,7 +23,7 @@
 # 
 # == Usage
 # 
-# fix_includes [OPTION] ... FILES
+# minclude.rb [OPTION] ... FILES
 # 
 # -h, --help:
 #    show help
