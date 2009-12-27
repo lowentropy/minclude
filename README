@@ -12,11 +12,14 @@ fix_includes [OPTION] ... FILES
 -b dir, --base dir:
    treat dir as the root directory for includes
 
+-c, --allow-cycles:
+   don't treat cycles as an exception
+
 -r, --recursive:
    find *.h files recursively
 
 -v, --verbose:
-   print out extra information
+   print out debugging information
 
 -d, --dry-run:
    don't actually alter the files (implies -v)
