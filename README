@@ -1,0 +1,24 @@
+== Synopsis
+
+minclude: removes unnecessary #include directives from header files
+
+== Usage
+
+fix_includes [OPTION] ... FILES
+
+-h, --help:
+   show help
+
+-b dir, --base dir:
+   treat dir as the root directory for includes
+
+-r, --recursive:
+   find *.h files recursively
+
+-v, --verbose:
+   print out extra information
+
+-d, --dry-run:
+   don't actually alter the files (implies -v)
+
+FILES: A list of header files to process

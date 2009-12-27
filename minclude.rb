@@ -2,7 +2,7 @@
 
 # == Synopsis
 #
-# fix_includes: removes unnecessary #include directives from header files
+# minclude: removes unnecessary #include directives from header files
 # 
 # == Usage
 # 
