@@ -123,8 +123,8 @@ class Minclude
     if (idx = stack.index current)
       cycle = stack[idx..-1] + [current]
       message = "cycle detected: #{cycle.join(' -> ')}"
-      if @allow_cycles
-        puts message if @verbose
+      if allow_cycles
+        puts message if verbose
       else
         raise message
       end
