@@ -77,9 +77,9 @@ class Minclude
       while index < included.size
         # remove root includes which are also descendants
         walk(includes, included[index], true) do |subfile|
-          if included.delete subfile
-            deleted[file] << subfile
-            index -= 1
+          while (found = included.index subfile)
+            deleted[file] << included.delete_at(found)
+            index -= 1 if found < index
           end
         end
         index += 1
