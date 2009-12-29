@@ -123,11 +123,7 @@ class Minclude
     if (idx = stack.index current)
       cycle = stack[idx..-1] + [current]
       message = "cycle detected: #{cycle.join(' -> ')}"
-      if allow_cycles
-        puts message if verbose
-      else
-        raise message
-      end
+      allow_cycles ? return : raise(message)
     end
     # call the block
     yield current unless skip_first
@@ -136,6 +132,7 @@ class Minclude
     (map[current] || []).each do |child|
       walk(map, child, false, stack, &block)
     end
+    stack.pop
   end
 end
 
@@ -192,6 +189,8 @@ if $0 == __FILE__
     puts "Must specify at least two files (see --help)"
     exit 0
   end
+
+  base += '/' if base =~ /[^\/]$/
 
   # run worker with our options
   Minclude.new(options).fix_headers(input, base)
