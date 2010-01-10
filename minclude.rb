@@ -35,8 +35,11 @@
 #    don't treat cycles as an exception
 # 
 # -r, --recursive:
-#    find *.h files recursively
-# 
+#    find files recursively
+#
+# -e ext, --extensions ext
+#    use the given comma-separated extensions (defaults to just h)
+#
 # -v, --verbose:
 #    print out debugging information
 #
@@ -146,6 +149,7 @@ if $0 == __FILE__
     ['--help', '-h', GetoptLong::NO_ARGUMENT],
     ['--base', '-b', GetoptLong::REQUIRED_ARGUMENT],
     ['--recursive', '-r', GetoptLong::NO_ARGUMENT],
+    ['--extensions', '-e', GetoptLong::REQUIRED_ARGUMENT],
     ['--allow-cycles', '-c', GetoptLong::NO_ARGUMENT],
     ['--verbose', '-v', GetoptLong::NO_ARGUMENT],
     ['--dry-run', '-d', GetoptLong::NO_ARGUMENT]
@@ -155,6 +159,7 @@ if $0 == __FILE__
   base = ''
   help = false
   recursive = false
+  ext = 'h'
 
   # collect option flags
   opts.each do |opt,arg|
@@ -172,6 +177,8 @@ if $0 == __FILE__
     when '--dry-run'
       options[:dry_run] = true
       options[:verbose] = true
+    when '--extensions'
+      ext = arg
     end
   end
 
@@ -184,7 +191,7 @@ if $0 == __FILE__
   # recursively find headers
   input = ARGV
   if recursive
-    input.map! {|root| Dir["#{root}/**/*.h"]}.flatten!
+    input.map! {|root| Dir["#{root}/**/*.{#{ext}}"]}.flatten!
   end
 
   # we need a set of input files
@@ -192,6 +199,9 @@ if $0 == __FILE__
     puts "Must specify at least two files (see --help)"
     exit 0
   end
+
+  # fix the base path
+  base += '/' unless base =~ /\/$/
 
   # run worker with our options
   Minclude.new(options).fix_headers(input, base)
